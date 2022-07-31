@@ -2,6 +2,10 @@ const express = require("express")
 const app = express()
 const port = process.env.PORT || 8000
 
+app.get('/',(request,response)=>{
+    response.send("test api")
+})
+
 app.get('/api/test',(request,response)=>{
     response.json([
         {
