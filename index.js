@@ -19,6 +19,6 @@ app.get('/api/test',(request,response)=>{
     ])
 })
 
-app.listen(8000,()=>{
+app.listen(port,()=>{
     console.log("connect to port 8000")
 })
