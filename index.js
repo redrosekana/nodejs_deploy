@@ -1,13 +1,69 @@
 const express = require("express")
+const bodyParser = require("body-parser")
+const Customer = require('./customer.js')
+const cors = require('cors');
 const app = express()
 const port = process.env.PORT || 8000
 
+app.use(express.json())
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(cors());
 
 app.get('/',(request,response)=>{
     response.send("test api")
 })
 
-app.get('/api/test',(request,response)=>{
+app.post('/add',(request,response)=>{
+    const data = {
+        name: request.body.name,
+        age: request.body.age,
+        gender: request.body.gender
+    }
+    
+    Customer.create(data,err => {
+        if (err){
+            response.status(404)  
+            response.send('insert fail')  
+        }else{
+            response.status(200)  
+            response.send('insert success') 
+        }
+    })
+})
+
+app.get('/read',(request,response)=>{
+    Customer.find().exec((err,docs) =>{
+        response.status(200)
+        response.json(docs)    
+    })
+    
+})
+
+app.put('/update',(request,response)=>{
+    Customer.updateOne({name:{$eq:"kana"}},request.body)
+    .exec((errs,result)=>{
+        if (errs){
+            console.log(errs)
+        }else{
+            console.log(result.modifiedCount);
+            response.send("update success")
+        }
+    })
+})
+
+app.delete('/delete',(request,response)=>{
+    Customer.deleteOne({name:{$eq:"kana"}})
+    .exec((errs,result)=>{
+        if (errs){
+            console.log(errs)
+        }else{
+            console.log(result.modifiedCount);
+            response.send("delete success")
+        }
+    })
+})
+
+app.get('/api',(request,response)=>{
     response.json([
         {
             title:"lorem 1",
