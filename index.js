@@ -5,6 +5,7 @@ const cors = require('cors');
 const app = express()
 const port = process.env.PORT || 8000
 
+
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(cors());
@@ -19,7 +20,6 @@ app.post('/add',(request,response)=>{
         age: request.body.age,
         gender: request.body.gender
     }
-    
     Customer.create(data,err => {
         if (err){
             response.status(404)  
@@ -36,7 +36,6 @@ app.get('/read',(request,response)=>{
         response.status(200)
         response.json(docs)    
     })
-    
 })
 
 app.put('/update',(request,response)=>{
@@ -85,5 +84,5 @@ app.get('/api',(request,response)=>{
 })
 
 app.listen(port,()=>{
-    console.log("connect to port 8000")
+    console.log("connect to port",port)
 })
