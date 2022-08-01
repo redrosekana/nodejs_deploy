@@ -1,7 +1,6 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const Customer = require('./customer.js')
-const cors = require('cors');
 const mongoose = require("mongoose")
 const app = express()
 
@@ -14,7 +13,7 @@ mongoose.connect(process.env.URL_DB,{
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
-app.use(cors());
+
 
 app.get('/',(request,response)=>{
     //console.log(request.url);
