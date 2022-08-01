@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(cors());
 
 app.get('/',(request,response)=>{
+    //console.log(request.url);
     response.send("test api")
 })
 
@@ -45,7 +46,6 @@ app.put('/update',(request,response)=>{
         if (errs){
             console.log(errs)
         }else{
-            console.log(result.modifiedCount);
             response.send("update success")
         }
     })
@@ -57,7 +57,6 @@ app.delete('/delete',(request,response)=>{
         if (errs){
             console.log(errs)
         }else{
-            console.log(result.modifiedCount);
             response.send("delete success")
         }
     })
