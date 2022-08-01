@@ -1,17 +1,24 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const Customer = require('./customer.js')
-const cors = require('cors');
+const mongoose = require("mongoose")
 const app = express()
+
+require("dotenv").config()
 const port = process.env.PORT || 8000
+
+mongoose.connect(process.env.URL_DB,{
+    useNewUrlParser:true
+}).catch(err=>console.log(err))
 
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
-app.use(cors());
+
 
 app.get('/',(request,response)=>{
-    response.send("test api")
+    //console.log(request.url);
+    response.send("test success")
 })
 
 app.post('/add',(request,response)=>{
@@ -44,7 +51,6 @@ app.put('/update',(request,response)=>{
         if (errs){
             console.log(errs)
         }else{
-            console.log(result.modifiedCount);
             response.send("update success")
         }
     })
@@ -56,7 +62,6 @@ app.delete('/delete',(request,response)=>{
         if (errs){
             console.log(errs)
         }else{
-            console.log(result.modifiedCount);
             response.send("delete success")
         }
     })
